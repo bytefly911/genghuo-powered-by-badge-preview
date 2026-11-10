@@ -51,6 +51,15 @@
         line-height: 1.12;
       }
 
+      .integration-jump {
+        display: inline-block;
+        margin-top: 14px;
+        color: #a83c10;
+        font-size: 14px;
+        font-weight: 650;
+        text-underline-offset: 3px;
+      }
+
       .preview-flame {
         flex: 0 0 auto;
         width: clamp(48px, 12vw, 180px);
@@ -107,6 +116,129 @@
         font-size: 13px;
       }
 
+      .integration {
+        margin-top: clamp(36px, 6vw, 80px);
+        padding-top: clamp(24px, 4vw, 44px);
+        border-top: 1px solid #d9d4cf;
+      }
+
+      .integration h2 {
+        margin: 0;
+        font-size: clamp(24px, 3vw, 36px);
+      }
+
+      .integration-steps {
+        margin: 16px 0 22px;
+        padding-inline-start: 1.5em;
+        color: #55504c;
+        font-size: 14px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+      }
+
+      .integration-steps li + li {
+        margin-top: 6px;
+      }
+
+      .code-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .code-panel {
+        min-width: 0;
+        padding: clamp(14px, 2.5vw, 24px);
+        border: 1px solid #ded8d1;
+        border-radius: 8px;
+        background: #fffdfb;
+      }
+
+      .code-panel h3 {
+        margin: 0 0 14px;
+        font-size: 18px;
+      }
+
+      .code-meta,
+      .code-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 12px;
+        min-height: 36px;
+        margin: 0;
+        font-size: 13px;
+      }
+
+      .code-meta select {
+        max-width: 100%;
+        min-height: 36px;
+        padding: 4px 8px;
+        border: 1px solid #c9c0b8;
+        border-radius: 4px;
+        background: #fff;
+        color: inherit;
+        font: inherit;
+      }
+
+      .code-panel textarea {
+        display: block;
+        width: 100%;
+        min-height: 110px;
+        margin: 12px 0;
+        padding: 12px;
+        resize: vertical;
+        border: 1px solid #ded8d1;
+        border-radius: 4px;
+        background: #f7f4f1;
+        color: #302c28;
+        font: 13px / 1.6 ui-monospace, monospace;
+      }
+
+      .code-actions button {
+        min-height: 38px;
+        padding: 6px 12px;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        background: #a83c10;
+        color: #fff;
+        font: inherit;
+        font-weight: 650;
+        cursor: pointer;
+      }
+
+      .code-actions {
+        margin-top: 12px;
+      }
+
+      .code-actions button:hover:enabled {
+        background: #8e310c;
+      }
+
+      .code-actions button:disabled {
+        opacity: 0.55;
+        cursor: default;
+      }
+
+      .code-actions a {
+        color: #a83c10;
+        text-underline-offset: 3px;
+      }
+
+      .code-panel :focus-visible,
+      .integration-jump:focus-visible {
+        outline: 2px solid #a83c10;
+        outline-offset: 3px;
+      }
+
+      .copy-status {
+        min-height: 1.5em;
+        margin: 8px 0 0;
+        color: #55504c;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
       @media (max-width: 720px) {
         .preview-heading {
           padding-bottom: 24px;
@@ -124,6 +256,10 @@
 
         .sample-footer {
           min-height: 114px;
+        }
+
+        .code-grid {
+          grid-template-columns: minmax(0, 1fr);
         }
       }
     </style>
@@ -150,6 +286,7 @@
         <div>
           <p class="preview-kicker">GENGHUO / FOOTER BADGE</p>
           <h1>耕火署名</h1>
+          <a class="integration-jump" href="#integration">接入说明与代码 ↓</a>
         </div>
         <svg class="preview-flame" width="180" height="216" viewBox="0 0 180 216" aria-hidden="true">
           <use href="#genghuo-flame" />
@@ -190,6 +327,101 @@
           </footer>
         </section>
       </div>
+
+      <section class="integration" id="integration" aria-labelledby="integration-title">
+        <h2 id="integration-title">接入说明</h2>
+        <ol class="integration-steps">
+          <li>按页脚背景和可用空间选择版本，复制 HTML，放到网站公共页脚的版权、备案信息下方。</li>
+          <li>复制 CSS，保存为 <code>genghuo-powered-by-badge.css</code>。通过项目现有的样式入口加载，或在页面 <code>&lt;head&gt;</code> 里加 <code>&lt;link rel="stylesheet" href="./genghuo-powered-by-badge.css"&gt;</code>，按项目目录调整路径。</li>
+          <li>在桌面和手机上检查布局，确认挂件可用 Tab 键聚焦，并链接到 <code>https://www.genghuo.cn</code>。深色窄页脚可以同时使用 <code>genghuo-badge--dark</code> 和 <code>genghuo-badge--compact</code>。</li>
+        </ol>
+
+        <noscript><p>可通过下载链接获取代码。下载的 HTML 默认是浅色标准版。</p></noscript>
+
+        <div class="code-grid">
+          <section class="code-panel" aria-labelledby="html-title">
+            <h3 id="html-title">HTML</h3>
+            <div class="code-meta">
+              <label for="badge-variant">挂件版本</label>
+              <select id="badge-variant" disabled>
+                <option value="light">浅色标准版</option>
+                <option value="dark">深色标准版</option>
+                <option value="compact">移动端紧凑版</option>
+              </select>
+            </div>
+            <div class="code-actions">
+              <button type="button" disabled>复制 HTML</button>
+              <a href="./src/genghuo-powered-by-badge.html" download>下载原始 HTML</a>
+            </div>
+            <p class="copy-status" role="status"></p>
+            <textarea aria-label="挂件 HTML 代码" rows="9" wrap="off" readonly spellcheck="false"></textarea>
+          </section>
+
+          <section class="code-panel" aria-labelledby="css-title">
+            <h3 id="css-title">CSS</h3>
+            <p class="code-meta">所有版本共用</p>
+            <div class="code-actions">
+              <button type="button" disabled>复制 CSS</button>
+              <a href="./src/genghuo-powered-by-badge.css" download>下载 CSS</a>
+            </div>
+            <p class="copy-status" role="status"></p>
+            <textarea aria-label="挂件 CSS 代码" rows="9" wrap="off" readonly spellcheck="false"></textarea>
+          </section>
+        </div>
+      </section>
     </main>
+    <script type="module">
+      const variantSelect = document.querySelector("#badge-variant");
+      const modifiers = {
+        light: "",
+        dark: " genghuo-badge--dark",
+        compact: " genghuo-badge--compact",
+      };
+
+      async function prepareCodePanel(panel) {
+        const field = panel.querySelector("textarea");
+        const button = panel.querySelector("button");
+        const status = panel.querySelector('[role="status"]');
+        const download = panel.querySelector("a[download]");
+        const type = panel.querySelector("h3").textContent;
+
+        try {
+          const response = await fetch(download.href);
+          if (!response.ok) throw new Error("Code file is unavailable");
+          const source = await response.text();
+
+          if (type === "HTML") {
+            const updateHtml = () => {
+              field.value = source.replace('class="genghuo-badge"', `class="genghuo-badge${modifiers[variantSelect.value]}"`);
+              field.scrollTop = 0;
+              field.scrollLeft = 0;
+              status.textContent = "";
+            };
+            variantSelect.addEventListener("change", updateHtml);
+            variantSelect.disabled = false;
+            updateHtml();
+          } else {
+            field.value = source;
+          }
+        } catch {
+          status.textContent = `${type} 加载失败，请使用下载链接。`;
+          return;
+        }
+
+        button.disabled = false;
+        button.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(field.value);
+            status.textContent = `已复制 ${type}`;
+          } catch {
+            field.focus();
+            field.select();
+            status.textContent = "代码已选中，请按 Ctrl+C 或 ⌘C 复制。";
+          }
+        });
+      }
+
+      document.querySelectorAll(".code-panel").forEach(prepareCodePanel);
+    </script>
   </body>
 </html>
